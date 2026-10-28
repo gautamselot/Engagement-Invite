@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <!-- Mobile App Mode Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#f8f4f9" />
+  
   <title>Chaitali & Pratik — Ring Ceremony</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +46,8 @@
       background-color: #050505;
       font-family: 'Cormorant Garamond', serif;
       color: var(--text-dark);
-      overflow-x: hidden;
+      overflow: hidden; /* Strictly locks outer window */
+      overscroll-behavior: none; /* Prevents bounce and pull-to-refresh on mobile */
       display: flex;
       justify-content: center;
     }
@@ -90,17 +98,17 @@
       clip-path: polygon(0 0, 100% 0, 50% 100%);
     }
 
-    /* Fixed Seal Design - Made much clearer and explicit */
+    /* Fixed Seal Design */
     .seal-plaque {
       position: absolute;
       top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 105px; /* Slightly larger */
+      width: 105px;
       height: 105px;
       background: var(--gold-foil);
       border-radius: 50%;
-      z-index: 999; /* Ensure it's on top of everything to catch clicks */
+      z-index: 999;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -131,7 +139,6 @@
       text-shadow: 0 1px 3px rgba(110, 85, 50, 0.3);
     }
     
-    /* Strong pulsing ring to indicate it's clickable */
     .seal-pulse {
       position: absolute;
       inset: -12px;
@@ -145,7 +152,6 @@
       100% { transform: scale(1.35); opacity: 0; }
     }
 
-    /* Animation States for Stage 1 */
     .envelope-layer.stage-1 .seal-plaque {
       transform: translate(-50%, -50%) scale(0);
       opacity: 0;
@@ -225,7 +231,10 @@
     .scroll-container {
       width: 100%;
       height: 100%;
+      overflow-x: hidden; /* Specifically prevent horizontal scrolling/wobbling */
       overflow-y: hidden;
+      overscroll-behavior-y: contain; /* Prevents scroll chaining on mobile */
+      touch-action: pan-y; /* Strict vertical touch only, blocks horizontal pans */
       scroll-behavior: smooth;
       position: relative;
       z-index: 10;
@@ -415,7 +424,7 @@
       width: 100%;
       height: 100%;
       cursor: grab;
-      touch-action: none;
+      touch-action: none; /* Prevents canvas touch from dragging screen */
     }
 
     /* Venue Box */
@@ -660,6 +669,18 @@
   </div>
 
   <script>
+    // Request immersive full-screen app view
+    function openInAppMode() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(() => {});
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen().catch(() => {});
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen().catch(() => {});
+      }
+    }
+
     // 1. Multi-Stage Opening Animation Sequence
     const envelopeLayer = document.getElementById('envelopeLayer');
     const openTrigger = document.getElementById('openTrigger');
@@ -672,6 +693,9 @@
 
     // Trigger opening sequence on seal click
     openTrigger.addEventListener('click', () => {
+      // Trigger App Fullscreen Mode
+      openInAppMode();
+
       // Audio Autoplay logic
       const playPromise = bgMusic.play();
       if (playPromise !== undefined) {
