@@ -4,32 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   
-  <!-- Mobile App Mode Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#f8f4f9" />
+  <meta name="theme-color" content="#fdfaf6" />
   
   <title>Chaitali & Pratik — Ring Ceremony</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-color: #fcfbfa;
       --text-dark: #2a252b;
       --text-muted: #756a7a;
       
-      /* Gold Palette */
       --gold-light: #f2eade;
       --gold-mid: #d4c19c;
       --gold-dark: #ab936b;
       --gold-foil: linear-gradient(135deg, #e3d4bc, #b89c6d, #dcc6a2);
       
-      /* Subtle Mauve/Purple Palette */
       --mauve-light: #f8f4f9;
       --mauve-mid: #efe7f2;
       --mauve-dark: #d6c6dc;
+
+      /* Solid Elegant Blush Pink Seal Color */
+      --solid-seal-bg: #e09bae; 
     }
 
     * {
@@ -40,30 +40,109 @@
       user-select: none;
     }
 
-    body, html {
+    html {
       width: 100%;
       height: 100%;
       background-color: #050505;
+      overflow: hidden;
+      overscroll-behavior: none; 
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #050505;
       font-family: 'Cormorant Garamond', serif;
       color: var(--text-dark);
-      overflow: hidden; /* Strictly locks outer window */
-      overscroll-behavior: none; /* Prevents bounce and pull-to-refresh on mobile */
+      overflow: hidden;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .phone-frame {
       position: relative;
       width: 100%;
       max-width: 430px;
+      height: 100vh; 
       height: 100dvh;
-      background: var(--bg-color);
+      background: radial-gradient(circle at 50% 20%, #ffffff 0%, var(--mauve-light) 60%, var(--mauve-mid) 100%);
       overflow: hidden;
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
     }
 
     /* ============================================================
-       STAGE 1: GRAND ENVELOPE OPENING ANIMATION
+       BACKGROUND DECORATIONS (Hearts, Orbs, Sparkles, Leaves)
+       ============================================================ */
+    .bg-decor-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+    
+    .bg-leaf {
+      position: absolute;
+      opacity: 0.35;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+    }
+    .bg-leaf-1 { top: -20px; left: -20px; width: 160px; animation: swayLeft 7s ease-in-out infinite alternate; transform-origin: top left; }
+    .bg-leaf-2 { top: 40%; right: -30px; width: 130px; animation: swayRight 9s ease-in-out infinite alternate; transform-origin: center right; }
+    .bg-leaf-3 { bottom: 10%; left: -20px; width: 150px; animation: swayLeft 8s ease-in-out infinite alternate; transform-origin: bottom left; }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(35px);
+      opacity: 0.6;
+      animation: drift 15s infinite alternate ease-in-out;
+    }
+    .orb-1 { width: 150px; height: 150px; background: #ffb3c6; top: 10%; left: -30px; }
+    .orb-2 { width: 180px; height: 180px; background: #e3d4bc; top: 55%; right: -50px; animation-delay: -5s; }
+    .orb-3 { width: 120px; height: 120px; background: #ff8fa3; bottom: -20px; left: 20%; animation-delay: -10s; }
+
+    .bg-heart {
+      position: absolute;
+      font-family: Arial, sans-serif;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      text-shadow: 0 2px 8px rgba(255, 74, 110, 0.4);
+    }
+    .h-1 { color: #ff758f; font-size: 18px; left: 15%; animation-duration: 12s; animation-delay: 0s; }
+    .h-2 { color: #c9184a; font-size: 14px; left: 82%; animation-duration: 15s; animation-delay: 2s; }
+    .h-3 { color: #ff4d6d; font-size: 22px; left: 50%; animation-duration: 14s; animation-delay: 5s; }
+    .h-4 { color: #ff8fa3; font-size: 16px; left: 68%; animation-duration: 17s; animation-delay: 1s; }
+    .h-5 { color: #ffb3c6; font-size: 20px; left: 25%; animation-duration: 13s; animation-delay: 7s; }
+    .h-6 { color: #a53860; font-size: 12px; left: 10%; animation-duration: 16s; animation-delay: 9s; }
+    .h-7 { color: #ff4d6d; font-size: 15px; left: 90%; animation-duration: 14s; animation-delay: 4s; }
+
+    .sparkle {
+      position: absolute;
+      color: var(--gold-mid);
+      font-size: 14px;
+      opacity: 0;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+    .s-1 { top: 25%; left: 30%; animation-delay: 0s; }
+    .s-2 { top: 45%; right: 20%; animation-delay: 1.5s; font-size: 18px; }
+    .s-3 { top: 75%; left: 15%; animation-delay: 0.7s; }
+    .s-4 { top: 15%; right: 35%; animation-delay: 2.2s; font-size: 12px; }
+
+    @keyframes swayLeft { 0% { transform: rotate(-3deg); } 100% { transform: rotate(5deg); } }
+    @keyframes swayRight { 0% { transform: scaleX(-1) rotate(-3deg); } 100% { transform: scaleX(-1) rotate(5deg); } }
+    @keyframes floatUp {
+      0% { transform: translateY(110vh) scale(0.8) rotate(-15deg); opacity: 0; }
+      15% { opacity: 0.9; } 85% { opacity: 0.9; }
+      100% { transform: translateY(-10vh) scale(1.3) rotate(25deg); opacity: 0; }
+    }
+    @keyframes drift { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, -40px); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.8; transform: scale(1.2); filter: drop-shadow(0 0 4px var(--gold-light)); } }
+
+    /* ============================================================
+       STAGE 1: RICHLY DECORATED ENVELOPE EXTERIOR (SOLID DESIGN)
        ============================================================ */
     .envelope-layer {
       position: absolute;
@@ -72,498 +151,397 @@
       pointer-events: auto;
       display: flex;
       overflow: hidden;
-      background: var(--mauve-light);
+      background: linear-gradient(135deg, #fdfaf6 0%, #faecee 50%, #f3dadd 100%);
       transition: transform 1.5s cubic-bezier(0.65, 0, 0.25, 1), opacity 1.5s ease;
       will-change: transform, opacity;
     }
 
     .flap {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 55%;
-      background: var(--mauve-light);
+      top: 0; left: 0; width: 100%; height: 55%;
+      background: linear-gradient(135deg, #fdfaf6 0%, #faecee 50%, #f3dadd 100%);
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       transform-origin: top;
       transition: transform 1.4s cubic-bezier(0.65, 0, 0.25, 1);
       z-index: 62;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+    /* Bold Flap Edges */
+    .flap::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(212, 193, 156, 0.25);
+      clip-path: polygon(0 0, 100% 0, 50% 98%);
     }
     .flap::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0; top: 0;
-      background: linear-gradient(to bottom, transparent 95%, rgba(212, 193, 156, 0.8) 100%);
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; top: 0;
+      background: linear-gradient(to bottom, transparent 90%, rgba(171, 147, 107, 0.9) 100%);
       clip-path: polygon(0 0, 100% 0, 50% 100%);
     }
 
-    /* Fixed Seal Design */
+    /* Fixed Solid Leaf Decorations on Envelope */
+    .fixed-solid-leaf {
+      position: absolute;
+      pointer-events: none;
+      z-index: 63;
+      width: 140px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    .env-tl { top: -10px; left: -10px; }
+    .env-tr { top: -10px; right: -10px; transform: scaleX(-1); }
+    .env-bl { bottom: -10px; left: -10px; z-index: 61; width: 160px; transform: scaleY(-1); }
+    .env-br { bottom: -10px; right: -10px; z-index: 61; width: 160px; transform: scale(-1, -1); }
+
+    /* Bold Structural Envelope Borders */
+    .env-border-line {
+      position: absolute;
+      inset: 16px;
+      border: 2px solid var(--gold-mid);
+      border-radius: 4px;
+      z-index: 61;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    /* ============================================================
+       SOLID PREMIUM SEAL (Blush Pink) & UX PULSE
+       ============================================================ */
     .seal-plaque {
       position: absolute;
-      top: 55%;
-      left: 50%;
+      top: 55%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 105px;
-      height: 105px;
-      background: var(--gold-foil);
+      width: 110px; height: 110px;
+      background: var(--solid-seal-bg);
       border-radius: 50%;
-      z-index: 999;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 30px rgba(138, 115, 77, 0.6), inset 0 0 15px rgba(255,255,255,0.8);
-      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-      border: 3px solid rgba(255,255,255,0.9);
+      z-index: 999; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 12px 35px rgba(224, 155, 174, 0.4), inset 0 0 0 3px rgba(255,255,255,0.5);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease, box-shadow 0.3s ease;
+      border: 4px solid #ffffff;
     }
-    .seal-plaque:hover { transform: translate(-50%, -50%) scale(1.05); }
+    .seal-plaque:hover { 
+      transform: translate(-50%, -50%) scale(1.05); 
+      box-shadow: 0 15px 45px rgba(224, 155, 174, 0.6), inset 0 0 0 3px rgba(255,255,255,0.7);
+    }
     
+    /* Clean, SOLID fill Monogram in White */
     .seal-monogram {
-      font-family: 'Great Vibes', cursive;
-      font-size: 46px;
-      line-height: 0.9;
-      color: #fff;
-      text-shadow: 0 2px 6px rgba(110, 85, 50, 0.4);
-      margin-top: 4px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700; font-style: italic; font-size: 38px; line-height: 1;
+      color: #ffffff; text-shadow: none; margin-top: 2px;
+      display: flex; align-items: center; gap: 4px;
     }
     .seal-sub {
       font-family: 'Montserrat', sans-serif;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #fff;
-      margin-top: 6px;
-      text-transform: uppercase;
-      text-shadow: 0 1px 3px rgba(110, 85, 50, 0.3);
+      font-size: 8.5px; font-weight: 700; letter-spacing: 3px;
+      color: #ffffff; text-shadow: none; margin-top: 6px; text-transform: uppercase;
     }
     
-    .seal-pulse {
+    /* Elegant UI/UX pulsing ring */
+    .ux-pulse-ring {
       position: absolute;
-      inset: -12px;
+      top: 55%; left: 50%;
+      width: 110px; height: 110px;
+      transform: translate(-50%, -50%);
       border-radius: 50%;
-      border: 1.5px solid var(--gold-mid);
-      animation: clickPulse 2s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: rgba(224, 155, 174, 0.4);
+      z-index: 998;
+      animation: invitePulse 2.5s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
       pointer-events: none;
     }
-    @keyframes clickPulse {
-      0% { transform: scale(0.9); opacity: 1; }
-      100% { transform: scale(1.35); opacity: 0; }
+    @keyframes invitePulse {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
     }
 
-    .envelope-layer.stage-1 .seal-plaque {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      pointer-events: none;
-    }
-    .envelope-layer.stage-2 .flap {
-      transform: rotateX(180deg);
-    }
-    .envelope-layer.stage-3 {
-      transform: translateY(100vh);
-      opacity: 0;
-    }
+    .envelope-layer.stage-1 .seal-plaque { transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none; }
+    .envelope-layer.stage-1 .ux-pulse-ring { display: none; }
+    .envelope-layer.stage-2 .flap { transform: rotateX(180deg); }
+    .envelope-layer.stage-3 { transform: translateY(100vh); opacity: 0; }
 
     /* ============================================================
-       STAGE 2: DRAPERY / MAUVE-SILK CURTAINS
+       STAGE 2: CURTAINS
        ============================================================ */
     .curtain-stage {
-      position: absolute;
-      inset: 0;
-      z-index: 40;
-      pointer-events: none;
-      overflow: hidden;
-      display: flex;
-      justify-content: space-between;
+      position: absolute; inset: 0; z-index: 40; pointer-events: none;
+      overflow: hidden; display: flex; justify-content: space-between;
     }
-
     .curtain-panel {
-      width: 55%;
-      height: 105%;
-      background: repeating-linear-gradient(
-        90deg,
-        #fbfafc 0px,
-        var(--mauve-light) 12px,
-        var(--mauve-mid) 24px,
-        var(--gold-light) 34px,
-        #fbfafc 46px
-      );
+      width: 55%; height: 105%;
+      background: repeating-linear-gradient(90deg, #fbfafc 0px, var(--mauve-light) 12px, var(--mauve-mid) 24px, var(--gold-light) 34px, #fbfafc 46px);
       box-shadow: 0 10px 40px rgba(70, 50, 80, 0.3);
-      transition: transform 2.8s cubic-bezier(0.65, 0, 0.25, 1), border-radius 2.8s ease;
-      z-index: 42;
+      transition: transform 2.8s cubic-bezier(0.65, 0, 0.25, 1), border-radius 2.8s ease; z-index: 42;
     }
-    .curtain-left {
-      transform-origin: top left;
-      border-right: 2px dashed rgba(212, 193, 156, 0.6);
-    }
-    .curtain-right {
-      transform-origin: top right;
-      border-left: 2px dashed rgba(212, 193, 156, 0.6);
-    }
-
-    .curtain-stage.drawn .curtain-left {
-      transform: translateX(-85%) scaleX(0.35) rotate(4deg);
-      border-bottom-right-radius: 50% 15%;
-    }
-    .curtain-stage.drawn .curtain-right {
-      transform: translateX(85%) scaleX(0.35) rotate(-4deg);
-      border-bottom-left-radius: 50% 15%;
-    }
-
+    .curtain-left { transform-origin: top left; border-right: 2px dashed rgba(212, 193, 156, 0.6); }
+    .curtain-right { transform-origin: top right; border-left: 2px dashed rgba(212, 193, 156, 0.6); }
+    .curtain-stage.drawn .curtain-left { transform: translateX(-85%) scaleX(0.35) rotate(4deg); border-bottom-right-radius: 50% 15%; }
+    .curtain-stage.drawn .curtain-right { transform: translateX(85%) scaleX(0.35) rotate(-4deg); border-bottom-left-radius: 50% 15%; }
     .top-valance {
-      position: absolute;
-      top: -10px; left: 0; width: 100%; height: 80px;
-      z-index: 45;
+      position: absolute; top: -10px; left: 0; width: 100%; height: 80px; z-index: 45;
       background: radial-gradient(ellipse at top, #fff 0%, var(--mauve-mid) 70%, var(--gold-mid) 100%);
       clip-path: polygon(0 0, 100% 0, 100% 40%, 80% 90%, 50% 100%, 20% 90%, 0 40%);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-      transform: translateY(-100%);
-      transition: transform 2s ease 0.5s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15); transform: translateY(-100%); transition: transform 2s ease 0.5s;
     }
-    .curtain-stage.drawn .top-valance {
-      transform: translateY(0);
-    }
+    .curtain-stage.drawn .top-valance { transform: translateY(0); }
 
     /* ============================================================
-       SCROLL CONTAINER & MAIN CONTENT
+       SCROLL CONTAINER & INNER FRAME DECORATIONS
        ============================================================ */
     .scroll-container {
-      width: 100%;
-      height: 100%;
-      overflow-x: hidden; /* Specifically prevent horizontal scrolling/wobbling */
-      overflow-y: hidden;
-      overscroll-behavior-y: contain; /* Prevents scroll chaining on mobile */
-      touch-action: pan-y; /* Strict vertical touch only, blocks horizontal pans */
-      scroll-behavior: smooth;
-      position: relative;
-      z-index: 10;
-      background: radial-gradient(circle at 50% 20%, #ffffff 0%, var(--mauve-light) 60%, var(--mauve-mid) 100%);
+      width: 100%; height: 100%; overflow-x: hidden; overflow-y: hidden;
+      overscroll-behavior-y: contain; touch-action: pan-y; scroll-behavior: smooth;
+      position: relative; z-index: 10; background: transparent;
     }
-    .scroll-container.unlocked {
-      overflow-y: auto;
-    }
+    .scroll-container.unlocked { overflow-y: auto; }
 
     .section-wrapper {
-      position: relative;
-      width: 100%;
-      min-height: 100dvh;
-      padding: 140px 24px 130px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      z-index: 5;
+      position: relative; width: 100%; min-height: 100dvh;
+      padding: 140px 24px 180px; display: flex; flex-direction: column;
+      align-items: center; text-align: center; z-index: 5;
     }
 
-    .decor-leaves {
-      position: absolute;
-      width: 160px;
-      height: auto;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 2s ease 1s;
+    /* Structured Inner Frame */
+    .inner-gold-frame {
+      position: absolute; inset: 20px 15px; border: 2px solid var(--gold-mid);
+      border-radius: 8px; pointer-events: none; z-index: 1; opacity: 0; transition: opacity 2s ease 1s;
     }
-    .decor-tl { top: -10px; left: -20px; }
-    .decor-br { bottom: -30px; right: -20px; transform: scale(-1, -1); }
-    .content-revealed .decor-leaves { opacity: 0.35; }
+    .content-revealed .inner-gold-frame { opacity: 0.8; }
+
+    .corner-flourish {
+      position: absolute; width: 50px; height: 50px; stroke: var(--gold-dark); stroke-width: 2; fill: none;
+    }
+    .cf-tl { top: -2px; left: -2px; } .cf-tr { top: -2px; right: -2px; transform: scaleX(-1); }
+    .cf-bl { bottom: -2px; left: -2px; transform: scaleY(-1); } .cf-br { bottom: -2px; right: -2px; transform: scale(-1, -1); }
+
+    /* Solid Leaves inside page corners */
+    .decor-leaves {
+      position: absolute; width: 170px; height: auto; pointer-events: none; z-index: 2; opacity: 0; transition: opacity 2s ease 1s;
+    }
+    .decor-tl { top: 0px; left: -10px; }
+    .decor-br { bottom: 0px; right: -10px; transform: scale(-1, -1); }
+    .content-revealed .decor-leaves { opacity: 0.8; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+
+    .section-divider {
+      width: 80%; height: 30px; margin: 15px 0 25px; opacity: 0.9;
+    }
 
     .fade-up {
-      opacity: 0;
-      transform: translateY(30px) scale(0.98);
+      opacity: 0; transform: translateY(30px) scale(0.98);
       transition: opacity 1.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 1.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-    .content-revealed .fade-up {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+    .content-revealed .fade-up { opacity: 1; transform: translateY(0) scale(1); }
 
     /* Typography & Layout */
     .invite-intro {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 10px;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-bottom: 12px;
-      z-index: 5;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 10px;
+      letter-spacing: 5px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 12px; z-index: 5;
     }
     .ceremony-title {
-      font-family: 'Cinzel', serif;
-      font-weight: 600;
-      font-size: 22px;
-      letter-spacing: 4px;
-      color: var(--text-dark);
-      margin-bottom: 40px;
-      position: relative;
-      display: inline-block;
-      z-index: 5;
+      font-family: 'Cinzel', serif; font-weight: 700; font-size: 22px;
+      letter-spacing: 4px; color: var(--text-dark); margin-bottom: 40px; position: relative; display: inline-block; z-index: 5;
     }
     .ceremony-title::after {
-      content: '';
-      position: absolute;
-      bottom: -14px; left: 15%; right: 15%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      content: ''; position: absolute; bottom: -14px; left: 10%; right: 10%;
+      height: 2px; background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
     }
 
     .couple-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: 72px;
-      color: #2b2330; 
-      line-height: 0.8;
-      margin: 12px 0;
-      text-shadow: 2px 2px 10px rgba(214, 198, 220, 0.6);
-      z-index: 5;
+      font-family: 'Great Vibes', cursive; font-size: 72px; color: #2b2330; 
+      line-height: 0.8; margin: 12px 0; text-shadow: 2px 2px 10px rgba(214, 198, 220, 0.6); z-index: 5;
     }
-
     .ampersand {
-      font-family: 'Cinzel', serif;
-      font-weight: 300;
-      font-size: 28px;
-      color: var(--gold-dark);
-      margin: 18px 0;
-      z-index: 5;
+      font-family: 'Cinzel', serif; font-weight: 400; font-size: 28px; color: var(--gold-dark); margin: 18px 0; z-index: 5;
     }
-
     .parent-details {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 400;
-      font-size: 8.5px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      opacity: 0.7;
-      margin-top: 8px;
-      margin-bottom: 25px;
-      z-index: 5;
+      font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 8.5px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted);
+      opacity: 0.9; margin-top: 8px; margin-bottom: 10px; z-index: 5;
     }
 
     .rings-container {
-      margin: 30px auto 10px;
-      width: 130px;
-      height: 90px;
-      animation: gentleFloat 4s ease-in-out infinite;
-      filter: drop-shadow(0 12px 20px rgba(0,0,0,0.06));
-      z-index: 5;
+      margin: 20px auto 10px; width: 130px; height: 90px;
+      animation: gentleFloat 4s ease-in-out infinite; filter: drop-shadow(0 12px 20px rgba(0,0,0,0.06)); z-index: 5;
     }
-    @keyframes gentleFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+    @keyframes gentleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
     /* Scratch Card */
     .scratch-container {
-      margin: 25px 0 45px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      z-index: 5;
+      margin: 15px 0 45px; display: flex; flex-direction: column; align-items: center; width: 100%; z-index: 5;
     }
     .scratch-heading {
-      font-family: 'Cinzel', serif;
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: var(--text-dark);
-      margin-bottom: 12px;
+      font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700;
+      letter-spacing: 2px; color: var(--text-dark); margin-bottom: 12px;
     }
     .scratch-instruction {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 400;
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--gold-dark);
-      text-transform: uppercase;
-      margin-bottom: 30px;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 10px;
+      letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 30px;
     }
-
     .scratch-wrapper {
-      position: relative;
-      width: 310px;
-      height: 190px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(60, 40, 70, 0.15);
-      border: 4px solid #fff;
-      background: radial-gradient(circle at center, #ffffff, var(--mauve-light));
+      position: relative; width: 310px; height: 190px; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 25px 60px rgba(60, 40, 70, 0.15);
+      border: 4px solid #fff; background: radial-gradient(circle at center, #ffffff, var(--mauve-light));
     }
     .hidden-date {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 20px;
       background-image: radial-gradient(circle at top right, rgba(214, 198, 220, 0.2), transparent);
     }
-    .hidden-date h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 34px;
-      font-weight: 700;
-      color: var(--gold-dark);
-      letter-spacing: 2px;
-      line-height: 1;
-    }
-    .hidden-time {
-      font-family: 'Cinzel', serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-dark);
-      letter-spacing: 1.5px;
-      margin-top: 10px;
-    }
-
-    #scratchCanvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      cursor: grab;
-      touch-action: none; /* Prevents canvas touch from dragging screen */
-    }
+    .hidden-date h3 { font-family: 'Cinzel', serif; font-size: 34px; font-weight: 800; color: var(--gold-dark); letter-spacing: 2px; line-height: 1; }
+    .hidden-time { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700; color: var(--text-dark); letter-spacing: 1.5px; margin-top: 10px; }
+    #scratchCanvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
 
     /* Venue Box */
     .venue-card {
-      padding: 30px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 2px solid #fff;
-      border-radius: 16px;
-      box-shadow: 0 15px 40px rgba(90, 70, 100, 0.08), inset 0 0 0 1px var(--gold-mid);
-      position: relative;
-      overflow: hidden;
-      z-index: 5;
+      padding: 30px; width: 100%; background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      border: 2px solid #fff; border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(90, 70, 100, 0.08), inset 0 0 0 1.5px var(--gold-mid);
+      position: relative; overflow: hidden; z-index: 5;
     }
-    .venue-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-      background: var(--gold-foil);
-    }
-    
+    .venue-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: var(--gold-foil); }
     .detail-row { margin-bottom: 0; }
     .detail-label {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-bottom: 8px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 8px;
     }
-    .detail-venue-name {
-      font-family: 'Cinzel', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: #1a1a1a;
-      letter-spacing: 2px;
-      margin: 8px 0;
-    }
-    .detail-venue-sub {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-    }
+    .detail-venue-name { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 800; color: #1a1a1a; letter-spacing: 2px; margin: 8px 0; }
+    .detail-venue-sub { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: var(--text-muted); }
 
     /* Add to Calendar Button */
     .btn-calendar {
-      margin-top: 35px;
-      background: var(--gold-foil);
-      color: #fff;
-      border: none;
-      padding: 16px 32px;
-      border-radius: 40px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(171, 147, 107, 0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      z-index: 5;
+      margin-top: 35px; background: var(--gold-foil); color: #fff; border: none;
+      padding: 16px 32px; border-radius: 40px; font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; box-shadow: 0 10px 25px rgba(171, 147, 107, 0.4);
+      display: inline-flex; align-items: center; gap: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease; z-index: 5;
     }
-    .btn-calendar:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 30px rgba(171, 147, 107, 0.5);
-    }
+    .btn-calendar:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(171, 147, 107, 0.5); }
     .btn-calendar:active { transform: translateY(1px); }
 
-    /* ============================================================
-       FLOATING BOTTOM CONTROLS
-       ============================================================ */
+    /* Compact Top Right Scroll Indicator */
+    .fixed-scroll-indicator {
+      position: absolute; top: 100px; right: 15px; display: flex; flex-direction: column;
+      align-items: center; font-family: 'Montserrat', sans-serif; font-size: 8px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark);
+      animation: bounceSmall 2s infinite; z-index: 30; pointer-events: none; opacity: 0;
+      transition: opacity 0.8s ease; background: rgba(255,255,255,0.85); padding: 8px 6px;
+      border-radius: 20px; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border: 1px solid rgba(212, 193, 156, 0.5);
+    }
+    .fixed-scroll-indicator.visible { opacity: 1; }
+    .fixed-scroll-indicator.hidden-by-scroll { opacity: 0 !important; transition: opacity 0.4s ease; }
+    .fixed-scroll-indicator svg { width: 14px; height: 14px; margin-top: 4px; stroke: var(--gold-dark); }
+    @keyframes bounceSmall {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+      60% { transform: translateY(-2px); }
+    }
+
+    /* FLOATING BOTTOM CONTROLS */
     .floating-bottom-bar {
-      position: absolute;
-      bottom: 25px;
-      left: 20px;
-      right: 20px;
-      z-index: 60;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
+      position: absolute; bottom: 25px; left: 20px; right: 20px; z-index: 60;
+      display: flex; justify-content: space-between; pointer-events: none;
     }
     .pill-btn {
-      pointer-events: auto;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(212, 193, 156, 0.7);
-      padding: 14px 22px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text-dark);
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      pointer-events: auto; background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 2px solid rgba(212, 193, 156, 0.8); padding: 14px 22px; border-radius: 30px;
+      display: flex; align-items: center; gap: 10px; font-family: 'Montserrat', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-dark); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       transition: transform 0.2s ease, background 0.2s ease;
     }
     .pill-btn:active { transform: scale(0.95); }
 
-    /* Particles */
     #particlesCanvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
+      position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3;
     }
   </style>
 </head>
 <body>
 
-  <!-- Audio Player -->
   <audio id="bgMusic" preload="auto" loop playsinline>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <div class="phone-frame">
-    <!-- Background Particles -->
+    <!-- Inner Ambient Background -->
+    <div class="bg-decor-layer">
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+      <div class="glow-orb orb-3"></div>
+      <div class="sparkle s-1">✨</div>
+      <div class="sparkle s-2">✨</div>
+      <div class="sparkle s-3">✨</div>
+      <div class="sparkle s-4">✨</div>
+      <svg class="bg-leaf bg-leaf-1" viewBox="0 0 100 150" fill="none" stroke="var(--gold-mid)" stroke-width="1.5">
+        <path d="M0,0 Q30,50 50,150 Q40,80 0,0" /><path d="M10,20 Q40,30 60,70 Q30,60 10,20" /><path d="M25,50 Q50,60 80,110 Q40,90 25,50" />
+      </svg>
+      <svg class="bg-leaf bg-leaf-2" viewBox="0 0 100 150" fill="none" stroke="var(--mauve-dark)" stroke-width="1.5">
+        <path d="M0,0 Q30,50 50,150 Q40,80 0,0" /><path d="M10,20 Q40,30 60,70 Q30,60 10,20" /><path d="M25,50 Q50,60 80,110 Q40,90 25,50" />
+      </svg>
+      <svg class="bg-leaf bg-leaf-3" viewBox="0 0 100 150" fill="none" stroke="var(--gold-mid)" stroke-width="1.5">
+        <path d="M0,0 Q30,50 50,150 Q40,80 0,0" /><path d="M10,20 Q40,30 60,70 Q30,60 10,20" />
+      </svg>
+      <div class="bg-heart h-1">&hearts;</div>
+      <div class="bg-heart h-2">&hearts;</div>
+      <div class="bg-heart h-3">&hearts;</div>
+      <div class="bg-heart h-4">&hearts;</div>
+      <div class="bg-heart h-5">&hearts;</div>
+      <div class="bg-heart h-6">&hearts;</div>
+      <div class="bg-heart h-7">&hearts;</div>
+    </div>
     <canvas id="particlesCanvas"></canvas>
 
-    <!-- Stage 1: The Grand Envelope -->
+    <!-- Stage 1: Structured & Solid Envelope Exterior -->
+    <div class="ux-pulse-ring"></div>
     <div class="envelope-layer" id="envelopeLayer">
-      <div class="flap" id="envFlap"></div>
+      <!-- Bold Outer Frame for Envelope -->
+      <div class="env-border-line"></div>
+      
+      <!-- Solid Fixed Gold Botanical Leaves on Envelope Corners -->
+      <svg class="fixed-solid-leaf env-br" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="var(--gold-mid)">
+          <path d="M10,10 Q60,20 100,100 Q40,80 10,10" />
+          <path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
+          <path d="M30,15 Q65,30 115,85 Q45,50 30,15" />
+          <circle cx="120" cy="80" r="4"/>
+          <circle cx="90" cy="130" r="5"/>
+        </g>
+      </svg>
+      <svg class="fixed-solid-leaf env-bl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="var(--gold-mid)">
+          <path d="M10,10 Q60,20 100,100 Q40,80 10,10" />
+          <path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
+          <path d="M30,15 Q65,30 115,85 Q45,50 30,15" />
+        </g>
+      </svg>
+
+      <div class="flap" id="envFlap">
+        <svg class="fixed-solid-leaf env-tl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g fill="var(--gold-mid)">
+            <path d="M10,10 Q60,20 100,100 Q40,80 10,10" />
+            <path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
+            <path d="M30,15 Q65,30 115,85 Q45,50 30,15" />
+            <circle cx="120" cy="80" r="4"/>
+          </g>
+        </svg>
+        <svg class="fixed-solid-leaf env-tr" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g fill="var(--gold-mid)">
+            <path d="M10,10 Q60,20 100,100 Q40,80 10,10" />
+            <path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Clean Solid Blush Pink Seal -->
       <div class="seal-plaque" id="openTrigger">
         <div class="seal-pulse"></div>
-        <div class="seal-monogram">C&P</div>
-        <div class="seal-sub">Click Here</div>
+        <!-- Ultra-clean all-white text Monogram -->
+        <div class="seal-monogram">
+          C <span style="font-size: 24px; margin: 0 2px;">&hearts;</span> P
+        </div>
+        <div class="seal-sub">CLICK HERE</div>
       </div>
     </div>
 
@@ -574,26 +552,28 @@
       <div class="curtain-panel curtain-right"></div>
     </div>
 
-    <!-- Stage 3: Scrollable Content -->
+    <!-- Stage 3: Scrollable Content with Solid Frame -->
     <div class="scroll-container" id="scrollContainer">
       <div class="section-wrapper" id="heroContent">
-        
-        <!-- Decorative Outlined Leaves -->
+
+        <!-- Solid Inner Frame & Bold Flourishes -->
+        <div class="inner-gold-frame">
+          <svg class="corner-flourish cf-tl" viewBox="0 0 50 50"><path d="M0,20 Q20,20 20,0 M0,30 Q30,30 30,0 M10,10 A5,5 0 1,1 11,10"/></svg>
+          <svg class="corner-flourish cf-tr" viewBox="0 0 50 50"><path d="M0,20 Q20,20 20,0 M0,30 Q30,30 30,0 M10,10 A5,5 0 1,1 11,10"/></svg>
+          <svg class="corner-flourish cf-bl" viewBox="0 0 50 50"><path d="M0,20 Q20,20 20,0 M0,30 Q30,30 30,0 M10,10 A5,5 0 1,1 11,10"/></svg>
+          <svg class="corner-flourish cf-br" viewBox="0 0 50 50"><path d="M0,20 Q20,20 20,0 M0,30 Q30,30 30,0 M10,10 A5,5 0 1,1 11,10"/></svg>
+        </div>
+
         <svg class="decor-leaves decor-tl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="var(--gold-mid)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10,10 Q60,20 100,100 Q40,80 10,10" />
-            <path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
-            <path d="M30,15 Q65,30 115,85 Q45,50 30,15" />
-            <path d="M100,100 Q120,130 150,140 Q130,110 100,100" />
-            <circle cx="120" cy="80" r="3" fill="var(--gold-light)"/>
-            <circle cx="90" cy="130" r="4" fill="var(--mauve-dark)"/>
+          <g fill="var(--gold-mid)">
+            <path d="M10,10 Q60,20 100,100 Q40,80 10,10" /><path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
+            <path d="M30,15 Q65,30 115,85 Q45,50 30,15" /><path d="M100,100 Q120,130 150,140 Q130,110 100,100" />
+            <circle cx="120" cy="80" r="4"/><circle cx="90" cy="130" r="5"/>
           </g>
         </svg>
-
         <svg class="decor-leaves decor-br" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="var(--gold-mid)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10,10 Q60,20 100,100 Q40,80 10,10" />
-            <path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
+          <g fill="var(--gold-mid)">
+            <path d="M10,10 Q60,20 100,100 Q40,80 10,10" /><path d="M15,25 Q50,45 85,115 Q30,90 15,25" />
             <path d="M30,15 Q65,30 115,85 Q45,50 30,15" />
           </g>
         </svg>
@@ -609,28 +589,28 @@
         <div class="couple-name fade-up" style="transition-delay: 2.8s;">Pratik</div>
         <div class="parent-details fade-up" style="transition-delay: 2.9s;">S/o Mr. Vinod & Mrs. Jyoti Katariya</div>
 
-        <!-- Elegant Floating Rings -->
+        <svg class="section-divider fade-up" style="transition-delay: 3.0s;" viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10,10 L90,10 M110,10 L190,10" stroke="var(--gold-mid)" stroke-width="1.5" />
+          <path d="M100,3 L107,10 L100,17 L93,10 Z" fill="var(--gold-dark)" />
+          <circle cx="80" cy="10" r="2" fill="var(--gold-mid)" /><circle cx="120" cy="10" r="2" fill="var(--gold-mid)" />
+        </svg>
+
         <div class="rings-container fade-up" style="transition-delay: 3.1s;">
           <svg viewBox="0 0 100 60" fill="none" stroke="url(#goldGrad)" stroke-width="2.5">
             <defs>
               <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#f2eade" />
-                <stop offset="50%" stop-color="#ab936b" />
-                <stop offset="100%" stop-color="#d4c19c" />
+                <stop offset="0%" stop-color="#f2eade" /><stop offset="50%" stop-color="#ab936b" /><stop offset="100%" stop-color="#d4c19c" />
               </linearGradient>
             </defs>
-            <circle cx="35" cy="30" r="22" />
-            <circle cx="65" cy="30" r="22" />
+            <circle cx="35" cy="30" r="22" /><circle cx="65" cy="30" r="22" />
             <path d="M35,3 L40,8 L35,13 L30,8 Z" fill="#fff" stroke="var(--gold-dark)" stroke-width="1.5"/>
             <path d="M35,5 L37.5,8 L35,11 L32.5,8 Z" fill="var(--gold-dark)" stroke="none"/>
           </svg>
         </div>
 
-        <!-- Scratch Card Container (Ordered before venue) -->
         <div class="scratch-container fade-up" style="transition-delay: 3.3s;">
           <h2 class="scratch-heading">Save The Date</h2>
           <p class="scratch-instruction">Scratch card to reveal</p>
-          
           <div class="scratch-wrapper">
             <div class="hidden-date">
               <h3>1st Nov 2026</h3>
@@ -640,7 +620,6 @@
           </div>
         </div>
 
-        <!-- Highlighted Venue Card -->
         <div class="venue-card fade-up" style="transition-delay: 3.5s;">
           <div class="detail-row">
             <div class="detail-label">Venue</div>
@@ -649,7 +628,6 @@
           </div>
         </div>
 
-        <!-- Calendar Button -->
         <button class="btn-calendar fade-up" id="addToCalendarBtn" style="transition-delay: 3.7s;">
           <span style="font-size:16px;">📅</span> Add to Calendar
         </button>
@@ -657,7 +635,14 @@
       </div>
     </div>
 
-    <!-- Floating Buttons -->
+    <!-- Compact Top Right Scroll Indicator -->
+    <div class="fixed-scroll-indicator" id="mainScrollIndicator">
+      Scroll
+      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+      </svg>
+    </div>
+
     <div class="floating-bottom-bar">
       <button class="pill-btn" id="musicBtn">
         <span id="musicIcon" style="font-size: 14px;">🎵</span> Music
@@ -669,120 +654,80 @@
   </div>
 
   <script>
-    // Request immersive full-screen app view
     function openInAppMode() {
       const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen().catch(() => {});
-      } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen().catch(() => {});
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen().catch(() => {});
-      }
+      if (elem.requestFullscreen) { elem.requestFullscreen().catch(() => {}); } 
+      else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen().catch(() => {}); } 
+      else if (elem.msRequestFullscreen) { elem.msRequestFullscreen().catch(() => {}); }
     }
 
-    // 1. Multi-Stage Opening Animation Sequence
     const envelopeLayer = document.getElementById('envelopeLayer');
     const openTrigger = document.getElementById('openTrigger');
+    const uxPulseRing = document.querySelector('.ux-pulse-ring');
     const curtainStage = document.getElementById('curtainStage');
     const scrollContainer = document.getElementById('scrollContainer');
     const heroContent = document.getElementById('heroContent');
+    const scrollIndicator = document.getElementById('mainScrollIndicator');
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
     let isPlaying = false;
 
-    // Trigger opening sequence on seal click
     openTrigger.addEventListener('click', () => {
-      // Trigger App Fullscreen Mode
       openInAppMode();
 
-      // Audio Autoplay logic
       const playPromise = bgMusic.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           isPlaying = true;
           musicBtn.innerHTML = '<span style="font-size: 14px;">⏸️</span> Pause';
-        }).catch(err => console.log("Audio play failed (browser restricted):", err));
+        }).catch(err => console.log("Audio play failed:", err));
       }
 
-      // Stage 1: Break Seal
       envelopeLayer.classList.add('stage-1');
+      if (uxPulseRing) uxPulseRing.style.display = 'none';
 
-      // Stage 2: Lift Flap
-      setTimeout(() => {
-        envelopeLayer.classList.add('stage-2');
-      }, 400);
-
-      // Stage 3: Drop entire envelope downwards
-      setTimeout(() => {
-        envelopeLayer.classList.add('stage-3');
-      }, 1400);
-
-      // Stage 4: Draw curtains aside
-      setTimeout(() => {
-        curtainStage.classList.add('drawn');
-      }, 1800);
-
-      // Stage 5: Reveal Content and SVG leaves
-      setTimeout(() => {
-        heroContent.classList.add('content-revealed');
-      }, 2000);
-
-      // Stage 6: Unlock scrolling and init canvas
+      setTimeout(() => { envelopeLayer.classList.add('stage-2'); }, 400);
+      setTimeout(() => { envelopeLayer.classList.add('stage-3'); }, 1400);
+      setTimeout(() => { curtainStage.classList.add('drawn'); }, 1800);
+      setTimeout(() => { heroContent.classList.add('content-revealed'); }, 2000);
       setTimeout(() => {
         scrollContainer.classList.add('unlocked');
-        envelopeLayer.style.display = 'none'; // Cleanup DOM
+        envelopeLayer.style.display = 'none'; 
         initScratchCard();
+        setTimeout(() => { scrollIndicator.classList.add('visible'); }, 600);
       }, 3500);
     });
 
-    // Music Toggle
+    scrollContainer.addEventListener('scroll', () => {
+      if (scrollContainer.scrollTop > 30) { scrollIndicator.classList.add('hidden-by-scroll'); } 
+      else { scrollIndicator.classList.remove('hidden-by-scroll'); }
+    });
+
     musicBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        bgMusic.pause();
-        musicBtn.innerHTML = '<span style="font-size: 14px;">🎵</span> Music';
-      } else {
-        bgMusic.play();
-        musicBtn.innerHTML = '<span style="font-size: 14px;">⏸️</span> Pause';
-      }
+      if (isPlaying) { bgMusic.pause(); musicBtn.innerHTML = '<span style="font-size: 14px;">🎵</span> Music'; } 
+      else { bgMusic.play(); musicBtn.innerHTML = '<span style="font-size: 14px;">⏸️</span> Pause'; }
       isPlaying = !isPlaying;
     });
 
-    // Map Button
     document.getElementById('mapBtn').addEventListener('click', () => {
       window.open('https://maps.google.com/?q=Te+Amo,+Nagar+Pune+Road,+Ahilyanagar', '_blank');
     });
 
-    // Add to Calendar
     document.getElementById('addToCalendarBtn').addEventListener('click', () => {
       const icsData = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Chaitali&Pratik//RingCeremony//EN',
-        'BEGIN:VEVENT',
-        'DTSTART:20261101T110000',
-        'DTEND:20261101T160000',
-        'SUMMARY:Chaitali & Pratik - Ring Ceremony',
-        'DESCRIPTION:Join us to celebrate the ring ceremony of Chaitali and Pratik.',
-        'LOCATION:Te Amo, Nagar - Pune Road, Ahilyanagar',
-        'BEGIN:VALARM',
-        'TRIGGER:-PT24H',
-        'ACTION:DISPLAY',
-        'DESCRIPTION:Reminder: Ring Ceremony Tomorrow!',
-        'END:VALARM',
-        'END:VEVENT',
-        'END:VCALENDAR'
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Chaitali&Pratik//RingCeremony//EN',
+        'BEGIN:VEVENT', 'DTSTART:20261101T110000', 'DTEND:20261101T160000',
+        'SUMMARY:Chaitali & Pratik - Ring Ceremony', 'DESCRIPTION:Join us to celebrate the ring ceremony of Chaitali and Pratik.',
+        'LOCATION:Te Amo, Nagar - Pune Road, Ahilyanagar', 'BEGIN:VALARM', 'TRIGGER:-PT24H',
+        'ACTION:DISPLAY', 'DESCRIPTION:Reminder: Ring Ceremony Tomorrow!', 'END:VALARM',
+        'END:VEVENT', 'END:VCALENDAR'
       ].join('\r\n');
 
       const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Chaitali_Pratik_Ring_Ceremony.ics';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      link.href = url; link.download = 'Chaitali_Pratik_Ring_Ceremony.ics';
+      document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(url);
       
       const btn = document.getElementById('addToCalendarBtn');
       const originalText = btn.innerHTML;
@@ -790,41 +735,29 @@
       setTimeout(() => btn.innerHTML = originalText, 3000);
     });
 
-    // 2. Realistic Foil Scratch Card
     const canvas = document.getElementById('scratchCanvas');
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     let isDrawing = false;
 
     function initScratchCard() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      
+      canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#f0eae1');
-      gradient.addColorStop(0.3, '#c7b390');
-      gradient.addColorStop(0.5, '#efe7f2'); // Mauve highlight
-      gradient.addColorStop(0.7, '#ab936b');
-      gradient.addColorStop(1, '#e3dcd1');
-      
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#f0eae1'); gradient.addColorStop(0.3, '#c7b390');
+      gradient.addColorStop(0.5, '#efe7f2'); gradient.addColorStop(0.7, '#ab936b'); gradient.addColorStop(1, '#e3dcd1');
+      ctx.fillStyle = gradient; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imgData.data;
       for (let i = 0; i < data.length; i += 4) {
-        const noise = (Math.random() - 0.5) * 14;
-        data[i] += noise; data[i+1] += noise; data[i+2] += noise;
+        const noise = (Math.random() - 0.5) * 14; data[i] += noise; data[i+1] += noise; data[i+2] += noise;
       }
       ctx.putImageData(imgData, 0, 0);
 
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.font = '500 14px Montserrat';
-      ctx.textAlign = 'center';
-      ctx.letterSpacing = '4px';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; ctx.font = '500 14px Montserrat';
+      ctx.textAlign = 'center'; ctx.letterSpacing = '4px';
       ctx.fillText('SCRATCH HERE', canvas.width/2, canvas.height/2 + 5);
       
-      ctx.strokeStyle = 'rgba(171, 147, 107, 0.6)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(171, 147, 107, 0.6)'; ctx.lineWidth = 2;
       ctx.strokeRect(12, 12, canvas.width - 24, canvas.height - 24);
     }
 
@@ -836,67 +769,47 @@
     }
 
     function scratch(e) {
-      if (!isDrawing) return;
-      e.preventDefault();
+      if (!isDrawing) return; e.preventDefault();
       const pos = getScratchPos(e);
-
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 25 + Math.random() * 5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 25 + Math.random() * 5, 0, Math.PI * 2); ctx.fill();
     }
 
     canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
     canvas.addEventListener('mousemove', scratch);
     window.addEventListener('mouseup', () => isDrawing = false);
-    
     canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
     canvas.addEventListener('touchmove', scratch, {passive: false});
     window.addEventListener('touchend', () => isDrawing = false);
 
-    // 3. Ultra-Soft Floating Mist/Particles
     const pCanvas = document.getElementById('particlesCanvas');
     const pCtx = pCanvas.getContext('2d');
     let particles = [];
 
     function resizeParticles() {
-      pCanvas.width = pCanvas.offsetWidth;
-      pCanvas.height = pCanvas.offsetHeight;
+      pCanvas.width = pCanvas.offsetWidth; pCanvas.height = pCanvas.offsetHeight;
     }
-    window.addEventListener('resize', resizeParticles);
-    resizeParticles();
+    window.addEventListener('resize', resizeParticles); resizeParticles();
 
     for(let i=0; i<40; i++) {
       particles.push({
-        x: Math.random() * pCanvas.width,
-        y: Math.random() * pCanvas.height,
-        r: Math.random() * 1.5 + 0.5,
-        vy: Math.random() * 0.4 + 0.1,
-        alpha: Math.random() * 0.6 + 0.2,
-        isMauve: Math.random() > 0.5
+        x: Math.random() * pCanvas.width, y: Math.random() * pCanvas.height,
+        r: Math.random() * 1.5 + 0.5, vy: Math.random() * 0.4 + 0.1,
+        alpha: Math.random() * 0.6 + 0.2, isMauve: Math.random() > 0.5
       });
     }
 
     function animateParticles() {
       pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
-      
       particles.forEach(p => {
-        p.y -= p.vy;
-        p.x += Math.sin(p.y * 0.015) * 0.3; 
-        if(p.y < -10) {
-          p.y = pCanvas.height + 10;
-          p.x = Math.random() * pCanvas.width;
-        }
-        
+        p.y -= p.vy; p.x += Math.sin(p.y * 0.015) * 0.3; 
+        if(p.y < -10) { p.y = pCanvas.height + 10; p.x = Math.random() * pCanvas.width; }
         pCtx.fillStyle = p.isMauve ? `rgba(214, 198, 220, ${p.alpha})` : `rgba(212, 193, 156, ${p.alpha})`; 
-        pCtx.beginPath();
-        pCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        pCtx.fill();
+        pCtx.beginPath(); pCtx.arc(p.x, p.y, p.r, 0, Math.PI*2); pCtx.fill();
       });
       requestAnimationFrame(animateParticles);
     }
     animateParticles();
-
   </script>
 </body>
 </html>
